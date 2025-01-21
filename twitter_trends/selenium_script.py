@@ -86,8 +86,11 @@ def proxy_auth_plugin(PROXY):
 
 
 #IP Address Resolution from Hostname
-def resolve_proxy_ip(PROXY):
+def resolve_proxy_ip(PROXY, USE_PROXY):
     """Resolve the proxy hostname to an IP address."""
+    if (USE_PROXY == 'FALSE' and PROXY == ''):
+        proxy_ip = "No Proxy"
+        return proxy_ip
     try:
         proxy_ip = socket.gethostbyname(PROXY)  # Extract the hostname from the proxy (e.g., in.proxymesh.com)
         print(f"Proxy IP address: {proxy_ip}")
@@ -188,7 +191,7 @@ def main():
         print(f"Using proxy: {PROXY}")
 
         #Resolve the proxy IP address
-        proxy_ip = resolve_proxy_ip(PROXY)
+        proxy_ip = resolve_proxy_ip(PROXY, USE_PROXY)
 
         #Create the proxy authentication plugin
         pluginfile = proxy_auth_plugin(PROXY)
