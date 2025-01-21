@@ -10,13 +10,21 @@ This project scrapes the top 5 trending topics from Twitter's homepage and store
 - **Django Web Interface**: A simple web page that allows you to trigger the scraping process with a button and view the results in real-time.
 
 ## How to use
-
+- **Clone this repository**: or you can download it as a zip then change directory to the project folder.
+  
+    ```bash
+    git clone https://github.com/Vinay-ak/Twitter-Trends.git
+    cd twitter_trends
+    ```
+    
 - **Instal packages**: For running the selenium script and ProxyMesh :
 
     ```bash
     pip install selenium webdriver-manager pymongo python-dotenv
     ```
+    
 - **Enviornment Variables**: Create a .env file in the root directory of the project with the following variables:
+  
     ```bash
     #MongoDB URI
     MONGO_URI=your_mongodb_url
@@ -32,6 +40,7 @@ This project scrapes the top 5 trending topics from Twitter's homepage and store
     refer to .env.example for better understanding.
 
 - **Run Django App**: After setting up everything else run the django app using:
+  
     ```bash
     python manage.py runserver
     ```
@@ -49,8 +58,10 @@ This project scrapes the top 5 trending topics from Twitter's homepage and store
 
 ## To-Do
 
-- Add more browsers support
+- Add more browsers support. 
 
-- Automate twitter/X log-in
+- Automate twitter/X log-in. 
 
-- Improve frontend of the django app
+- Improve frontend of the Django app.
+
+- Deploy the app. 
