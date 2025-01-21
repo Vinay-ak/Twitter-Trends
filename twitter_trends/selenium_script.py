@@ -23,6 +23,7 @@ PROXY_LIST = os.getenv("HOSTS").split(",")
 USERNAME = os.getenv("USERNAME")
 PASSWORD = os.getenv("PASSWORD")
 PORT = os.getenv("PORT")
+USE_PROXY = os.getenv("USE_PROXY")
 
 
 
@@ -106,10 +107,11 @@ def configure_mongo():
 
 
 #Selenium Configuration
-def configure_selenium(pluginfile):
+def configure_selenium(pluginfile, USE_PROXY):
     """Set up the Selenium web driver with the a proxy. """
     options = webdriver.ChromeOptions()
-    options.add_extension(pluginfile)
+    if (USE_PROXY == 'TRUE'):
+        options.add_extension(pluginfile)
     service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service, options=options)
     return driver
@@ -169,8 +171,9 @@ def save_to_mongo(trends, proxy_ip):
         "trend3": trends[2] if len(trends) > 2 else None,
         "trend4": trends[3] if len(trends) > 3 else None,
         "trend5": trends[4] if len(trends) > 4 else None,
-        "end_time": datetime.now(),
-        "ip_address": proxy_ip
+        "script_end_time": str(datetime.now().strftime("%d-%m-%Y %H:%M:%S")), #
+        "ip_address": proxy_ip,
+        "date_time_obj": datetime.now()
     }
     collection.insert_one(record)
     print("Results saved to MongoDB.")    
@@ -191,7 +194,7 @@ def main():
         pluginfile = proxy_auth_plugin(PROXY)
 
         #Configure Selenium driver with the selected proxy
-        driver = configure_selenium(pluginfile)
+        driver = configure_selenium(pluginfile, USE_PROXY)
 
         #Wait for the user to log in
         wait_for_user_login(driver)
